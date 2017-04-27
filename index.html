@@ -387,12 +387,67 @@ categories: 分类
 <li>第二行 </li>
 <li>第三行 </li>
 </ol>
-<h2 id="引用"><a href="#引用" class="headerlink" title="引用"></a>引用</h2><p>引用一小段别处的句子，在文本前加上<code>&gt;</code>即可</p>
-<blockquote>
-<p>例如像这样引用</p>
+<h2 id="引用"><a href="#引用" class="headerlink" title="引用"></a>引用</h2><blockquote>
+<p>引用一小段别处的句子，在文本前加上<code>&gt;</code>即可，例如像本句这样引用</p>
 </blockquote>
-<h2 id="图片与链接"><a href="#图片与链接" class="headerlink" title="图片与链接"></a>图片与链接</h2><p>插入链接与图片的语法的区别在于一个<code>!</code>号<br>图片为：<code>![](relative address)</code><br>链接为：<code>[]()</code></p>
+<h2 id="图片与链接"><a href="#图片与链接" class="headerlink" title="图片与链接"></a>图片与链接</h2><blockquote>
+<p>插入链接与图片的语法的区别在于一个<code>!</code>号<br>图片为：<code>![](relative address)</code><br>链接为：<code>[]()</code></p>
+</blockquote>
 <p><img src="../imgs/leon.jpg" alt=""></p>
+<h2 id="粗体和斜体"><a href="#粗体和斜体" class="headerlink" title="粗体和斜体"></a>粗体和斜体</h2><blockquote>
+<p>两个<code>*</code>包含一段文本就是粗体的语法，用一个<code>*</code>包含文本就是斜体语法</p>
+</blockquote>
+<p><strong>粗体</strong>和<em>斜体</em></p>
+<h2 id="表格"><a href="#表格" class="headerlink" title="表格"></a>表格</h2><blockquote>
+<p>表格语法如下<br><code>| Tables        | Are           | Cool  |
+ | ------------- |:-------------:| -----:|
+ | col 3 is      | right-aligned | $1600 |
+ | col 2 is      | centered      |   $12 |
+ | zebra stripes | are neat      |    $1 |</code></p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Tables</th>
+<th style="text-align:center">Are</th>
+<th style="text-align:right">Cool</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>col 3 is</td>
+<td style="text-align:center">right-aligned</td>
+<td style="text-align:right">$1600</td>
+</tr>
+<tr>
+<td>col 2 is</td>
+<td style="text-align:center">centered</td>
+<td style="text-align:right">$12</td>
+</tr>
+<tr>
+<td>zebra stripes</td>
+<td style="text-align:center">are neat</td>
+<td style="text-align:right">$1</td>
+</tr>
+</tbody>
+</table>
+<h2 id="代码框"><a href="#代码框" class="headerlink" title="代码框"></a>代码框</h2><blockquote>
+<p>用两个<code>` </code>把中间的代码包裹</p>
+</blockquote>
+<p><code>var gitment = new Gitment({
+  owner: &#39;kongchenglc&#39;,
+  repo: &#39;kongchenglc.github.io&#39;,
+  oauth: {
+    client_id: &#39;id&#39;,
+    client_secret: &#39;secret&#39;,
+  },
+})</code></p>
+<h2 id="分割线"><a href="#分割线" class="headerlink" title="分割线"></a>分割线</h2><blockquote>
+<p>分割线的语法为三个<code>*</code></p>
+</blockquote>
+<p>例如像这样</p>
+<hr>
+<p>分割两段话</p>
 <p><br><br></p>
 <p><div id="container"></div></p>
 <p><link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css"></p>
@@ -406,7 +461,7 @@ var gitment = new Gitment({
     client_secret: '4dfa357fe3a76e38ce1fd63eb285b5f21307106e',
   },
 })
-gitment.render('container')
+gitment.render('container');
 </script>
           
         
