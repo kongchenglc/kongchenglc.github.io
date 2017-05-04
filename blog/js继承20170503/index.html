@@ -102,17 +102,17 @@
 
 
 
-<meta name="description" content="js的继承有6种方式，大致总结一下它们各自的优缺点，以及它们之间的关系。    原型链&amp;emsp;&amp;emsp;js的继承机制不同于传统的面向对象语言，采用原型链实现继承，基本思想是利用原型让一个引用类型继承另一个引用类型的属性和方法。理解原型链必须先理解原型，以下是对于原型的一些解释：  无论什么时候，只要创建了一个新函数，就会根据一组特定规则为该函数创建一个prototype属性。这个属性指向">
+<meta name="description" content="js的继承有6种方式，大致总结一下它们各自的优缺点，以及它们之间的关系。    1.原型链&amp;emsp;&amp;emsp;js的继承机制不同于传统的面向对象语言，采用原型链实现继承，基本思想是利用原型让一个引用类型继承另一个引用类型的属性和方法。理解原型链必须先理解原型，以下是对于原型的一些解释：  无论什么时候，只要创建了一个新函数，就会根据一组特定规则为该函数创建一个prototype属性。这个属性">
 <meta name="keywords" content="继承">
 <meta property="og:type" content="article">
 <meta property="og:title" content="js继承">
 <meta property="og:url" content="https://kongchenglc.coding.me/blog/js继承20170503/index.html">
 <meta property="og:site_name" content="Kongcheng.LC">
-<meta property="og:description" content="js的继承有6种方式，大致总结一下它们各自的优缺点，以及它们之间的关系。    原型链&amp;emsp;&amp;emsp;js的继承机制不同于传统的面向对象语言，采用原型链实现继承，基本思想是利用原型让一个引用类型继承另一个引用类型的属性和方法。理解原型链必须先理解原型，以下是对于原型的一些解释：  无论什么时候，只要创建了一个新函数，就会根据一组特定规则为该函数创建一个prototype属性。这个属性指向">
-<meta property="og:updated_time" content="2017-05-03T14:56:34.170Z">
+<meta property="og:description" content="js的继承有6种方式，大致总结一下它们各自的优缺点，以及它们之间的关系。    1.原型链&amp;emsp;&amp;emsp;js的继承机制不同于传统的面向对象语言，采用原型链实现继承，基本思想是利用原型让一个引用类型继承另一个引用类型的属性和方法。理解原型链必须先理解原型，以下是对于原型的一些解释：  无论什么时候，只要创建了一个新函数，就会根据一组特定规则为该函数创建一个prototype属性。这个属性">
+<meta property="og:updated_time" content="2017-05-04T15:05:38.622Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="js继承">
-<meta name="twitter:description" content="js的继承有6种方式，大致总结一下它们各自的优缺点，以及它们之间的关系。    原型链&amp;emsp;&amp;emsp;js的继承机制不同于传统的面向对象语言，采用原型链实现继承，基本思想是利用原型让一个引用类型继承另一个引用类型的属性和方法。理解原型链必须先理解原型，以下是对于原型的一些解释：  无论什么时候，只要创建了一个新函数，就会根据一组特定规则为该函数创建一个prototype属性。这个属性指向">
+<meta name="twitter:description" content="js的继承有6种方式，大致总结一下它们各自的优缺点，以及它们之间的关系。    1.原型链&amp;emsp;&amp;emsp;js的继承机制不同于传统的面向对象语言，采用原型链实现继承，基本思想是利用原型让一个引用类型继承另一个引用类型的属性和方法。理解原型链必须先理解原型，以下是对于原型的一些解释：  无论什么时候，只要创建了一个新函数，就会根据一组特定规则为该函数创建一个prototype属性。这个属性">
 
 
 
@@ -381,7 +381,7 @@
         <blockquote>
 <p>js的继承有6种方式，大致总结一下它们各自的优缺点，以及它们之间的关系。  </p>
 </blockquote>
-<h2 id="原型链"><a href="#原型链" class="headerlink" title="原型链"></a>原型链</h2><p>&emsp;&emsp;js的继承机制不同于传统的面向对象语言，采用原型链实现继承，基本思想是利用原型让一个引用类型继承另一个引用类型的属性和方法。理解原型链必须先理解原型，以下是对于原型的一些解释：</p>
+<h2 id="1-原型链"><a href="#1-原型链" class="headerlink" title="1.原型链"></a>1.原型链</h2><p>&emsp;&emsp;js的继承机制不同于传统的面向对象语言，采用原型链实现继承，基本思想是利用原型让一个引用类型继承另一个引用类型的属性和方法。理解原型链必须先理解原型，以下是对于原型的一些解释：</p>
 <blockquote>
 <p>无论什么时候，只要创建了一个新函数，就会根据一组特定规则为该函数创建一个<code>prototype</code>属性。这个属性指向函数的原型对象，所有原型对象都会自动获得一个<code>constructor</code>属性，这个属性是一个指向<code>prototype</code>属性所在函数的指针。创建自定义的构造函数之后，其原型对象<strong>只会</strong>取得<code>constructor</code>属性，其他方法都是从<code>Object</code>继承来的。当调用构造函数创建一个新实例之后，该实例的内部包含一个指针，指向构造函数的原型对象，即<code>[[Prototype]]</code>，在浏览器中为<code>_proto_</code></p>
 </blockquote>
@@ -398,6 +398,7 @@
 <li>创建子类时，无法向父类构造函数传参</li>
 </ol>
 <hr>
+<h2 id="2-原型式继承"><a href="#2-原型式继承" class="headerlink" title="2.原型式继承"></a>2.原型式继承</h2><p>  原型式继承借助原型基于已有对象创建新对象，需要一个对象作为另一个对象的基础：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">object</span>(<span class="params">o</span>) </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">function</span> <span class="title">F</span>(<span class="params"></span>) </span>&#123;&#125;</div><div class="line">    F.prototype = o;</div><div class="line">    <span class="keyword">return</span> <span class="keyword">new</span> F();</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
 <p><br><br></p>
 <p><div id="container"></div></p>
 <p><link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css"></p>
@@ -611,7 +612,7 @@ gitment.render('container');
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#原型链"><span class="nav-number">1.</span> <span class="nav-text">原型链</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#举个例子"><span class="nav-number">1.1.</span> <span class="nav-text">举个例子</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#优缺点"><span class="nav-number">1.2.</span> <span class="nav-text">优缺点</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-原型链"><span class="nav-number">1.</span> <span class="nav-text">1.原型链</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#举个例子"><span class="nav-number">1.1.</span> <span class="nav-text">举个例子</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#优缺点"><span class="nav-number">1.2.</span> <span class="nav-text">优缺点</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-原型式继承"><span class="nav-number">2.</span> <span class="nav-text">2.原型式继承</span></a></li></ol></div>
             
 
           </div>
