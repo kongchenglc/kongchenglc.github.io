@@ -102,17 +102,19 @@
 
 
 
-<meta name="description" content="人海风起云涌">
+<meta name="description" content="&amp;emsp;&amp;emsp;一直想做一个立体的盒子，前段时间刚好看见掘金上有位朋友发了篇关于3d盒子的文章，看了决定自己做一下，再写一些和盒子互动的操作。这里是github地址，上边还有别的有趣的demo，欢迎来访。  &amp;emsp;&amp;emsp;首先看下怎么做一个静止的盒子，用到了css3的transform。将盒子六个面放在一个div里，将这个div定位好，用transform属性改变不同的面的朝向">
 <meta name="keywords" content="demo,js,css3">
 <meta property="og:type" content="article">
-<meta property="og:title" content="3Dbox">
+<meta property="og:title" content="拖拽3D盒子">
 <meta property="og:url" content="https://kongchenglc.github.io/blog/3Dbox20170827/index.html">
 <meta property="og:site_name" content="Kongcheng.LC">
-<meta property="og:description" content="人海风起云涌">
-<meta property="og:updated_time" content="2017-08-27T02:38:36.145Z">
+<meta property="og:description" content="&amp;emsp;&amp;emsp;一直想做一个立体的盒子，前段时间刚好看见掘金上有位朋友发了篇关于3d盒子的文章，看了决定自己做一下，再写一些和盒子互动的操作。这里是github地址，上边还有别的有趣的demo，欢迎来访。  &amp;emsp;&amp;emsp;首先看下怎么做一个静止的盒子，用到了css3的transform。将盒子六个面放在一个div里，将这个div定位好，用transform属性改变不同的面的朝向">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/5569096-2629915a96c4b9cf.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:updated_time" content="2017-08-27T13:06:22.040Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="3Dbox">
-<meta name="twitter:description" content="人海风起云涌">
+<meta name="twitter:title" content="拖拽3D盒子">
+<meta name="twitter:description" content="&amp;emsp;&amp;emsp;一直想做一个立体的盒子，前段时间刚好看见掘金上有位朋友发了篇关于3d盒子的文章，看了决定自己做一下，再写一些和盒子互动的操作。这里是github地址，上边还有别的有趣的demo，欢迎来访。  &amp;emsp;&amp;emsp;首先看下怎么做一个静止的盒子，用到了css3的transform。将盒子六个面放在一个div里，将这个div定位好，用transform属性改变不同的面的朝向">
+<meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/5569096-2629915a96c4b9cf.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 
 
 
@@ -146,7 +148,7 @@
 
 
 
-  <title>3Dbox | Kongcheng.LC</title>
+  <title>拖拽3D盒子 | Kongcheng.LC</title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -306,7 +308,7 @@
             
             
               
-                3Dbox
+                拖拽3D盒子
               
             
           </h1>
@@ -333,12 +335,34 @@
           </span>
 
           
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/demo/" itemprop="url" rel="index">
+                    <span itemprop="name">demo</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
 
 
 
           
           &nbsp; | &nbsp;
-          <span id="/blog/3Dbox20170827/"class="leancloud_visitors" data-flag-title="3Dbox">
+          <span id="/blog/3Dbox20170827/"class="leancloud_visitors" data-flag-title="拖拽3D盒子">
                    &nbsp;阅读次数
                   </span>
           
@@ -365,7 +389,36 @@
       
 
       
-        
+        <blockquote>
+<p>&emsp;&emsp;一直想做一个立体的盒子，前段时间刚好看见掘金上有位朋友发了篇关于<code>3d</code>盒子的文章，看了决定自己做一下，再写一些和盒子互动的操作。<a href="https://github.com/kongchenglc/Demo" target="_blank" rel="external">这里是github地址</a>，上边还有别的有趣的demo，欢迎来访。</p>
+</blockquote>
+<p>&emsp;&emsp;首先看下怎么做一个静止的盒子，用到了<code>css3</code>的<code>transform</code>。将盒子六个面放在一个<code>div</code>里，将这个<code>div</code>定位好，用<code>transform</code>属性改变不同的面的朝向，再将其向前移动盒子宽度的一半，盒子就做好了。<code>html</code>结构如下：</p>
+<a id="more"></a>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"wraper"</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"cube"</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"front"</span>&gt;</span>Front<span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"end"</span>&gt;</span>End<span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"left"</span>&gt;</span>Left<span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"right"</span>&gt;</span>Right<span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"top"</span>&gt;</span>Top<span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"bottom"</span>&gt;</span>Bottom<span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>&emsp;&emsp;设置css，不熟悉<code>transform</code>可以看下下边这张图，需要注意的是<strong>元素的轴是跟着元素转动而转动的</strong>，所以几个面的<code>translateZ</code>属性的值都是一样的，旋转到正确的朝向然后向前平移盒子一半的宽度。    </p>
+<p><img src="http://upload-images.jianshu.io/upload_images/5569096-2629915a96c4b9cf.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="3d_axes.png"></p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div></pre></td><td class="code"><pre><div class="line"><span class="selector-tag">body</span>,</div><div class="line"><span class="selector-tag">html</span> &#123;</div><div class="line">    <span class="attribute">height</span>: <span class="number">100%</span>;</div><div class="line">    <span class="attribute">padding</span>: <span class="number">0</span>;</div><div class="line">    <span class="attribute">margin</span>: <span class="number">0</span>;</div><div class="line">    <span class="comment">/*将border和padding绘制在设置宽高之内*/</span></div><div class="line">    <span class="attribute">box-sizing</span>: border-box;      </div><div class="line">    <span class="attribute">overflow</span>: hidden;</div><div class="line">&#125;</div><div class="line"><span class="selector-class">.wraper</span> &#123;</div><div class="line">    <span class="attribute">width</span>: <span class="number">260px</span>;</div><div class="line">    <span class="attribute">height</span>: <span class="number">260px</span>;</div><div class="line">    <span class="attribute">margin</span>: <span class="number">128px</span> auto;</div><div class="line">    <span class="comment">/*景深，可以理解为视角到3D物体的距离，设置于舞台元素上*/</span></div><div class="line">    <span class="attribute">perspective</span>: <span class="number">1000px</span>;</div><div class="line">&#125;</div><div class="line"><span class="selector-class">.cube</span> &#123;</div><div class="line">    <span class="attribute">height</span>: <span class="number">100%</span>;</div><div class="line">    <span class="attribute">width</span>: <span class="number">100%</span>;</div><div class="line">    <span class="attribute">position</span>: relative;</div><div class="line">    <span class="comment">/*子元素继承3D效果*/</span></div><div class="line">    <span class="attribute">transform-style</span>: preserve-<span class="number">3</span>d;</div><div class="line">    <span class="comment">/*加上下边这句可以体现出立体感*/</span></div><div class="line">    <span class="comment">/*transform: rotateX(-30deg) rotateY(-45deg);*/</span></div><div class="line">&#125;</div><div class="line"><span class="selector-class">.cube</span>&gt;<span class="selector-tag">div</span> &#123;</div><div class="line">    <span class="attribute">width</span>: <span class="number">100%</span>;</div><div class="line">    <span class="attribute">height</span>: <span class="number">100%</span>;</div><div class="line">    <span class="attribute">position</span>: absolute;</div><div class="line">    <span class="attribute">top</span>: <span class="number">0</span>;</div><div class="line">    <span class="attribute">left</span>: <span class="number">0</span>;</div><div class="line">    <span class="attribute">background-color</span>: <span class="built_in">rgba</span>(0, 0, 0, .8);</div><div class="line">    <span class="attribute">text-align</span>: center;</div><div class="line">    <span class="attribute">line-height</span>: <span class="number">260px</span>;</div><div class="line">    <span class="attribute">color</span>: <span class="number">#fff</span>;</div><div class="line">    <span class="attribute">font-size</span>: <span class="number">48px</span>;</div><div class="line">    <span class="attribute">border</span>: <span class="number">2px</span> solid <span class="number">#fff</span>;</div><div class="line">    <span class="comment">/*设置文本内容不可选*/</span></div><div class="line">    <span class="attribute">user-select</span>: none;</div><div class="line">&#125;</div><div class="line"><span class="selector-class">.front</span> &#123;</div><div class="line">    <span class="comment">/*正面不用旋转，直接向前平移半个盒子宽*/</span></div><div class="line">    <span class="attribute">transform</span>: <span class="built_in">translateZ</span>(130px);</div><div class="line">&#125;</div><div class="line"><span class="selector-class">.end</span> &#123;</div><div class="line">    <span class="comment">/*向后旋转，以确保盒子上的文字朝向盒子外*/</span></div><div class="line">    <span class="attribute">transform</span>: <span class="built_in">rotateY</span>(180deg) <span class="built_in">translateZ</span>(130px);</div><div class="line">&#125;</div><div class="line"><span class="selector-class">.top</span> &#123;</div><div class="line">    <span class="attribute">transform</span>: <span class="built_in">rotateX</span>(90deg) <span class="built_in">translateZ</span>(130px);</div><div class="line">&#125;</div><div class="line"><span class="selector-class">.bottom</span> &#123;</div><div class="line">    <span class="attribute">transform</span>: <span class="built_in">rotateX</span>(-90deg) <span class="built_in">translateZ</span>(130px);</div><div class="line">&#125;</div><div class="line"><span class="selector-class">.left</span> &#123;</div><div class="line">    <span class="attribute">transform</span>: <span class="built_in">rotateY</span>(-90deg) <span class="built_in">translateZ</span>(130px);</div><div class="line">&#125;</div><div class="line"><span class="selector-class">.right</span> &#123;</div><div class="line">    <span class="attribute">transform</span>: <span class="built_in">rotateY</span>(90deg) <span class="built_in">translateZ</span>(130px);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>&emsp;&emsp;下来就是鼠标拖动盒子的核心代码了，先理一下思路，鼠标拖动盒子，就是记录下盒子的角度，然后点击鼠标并拖动的时候根据鼠标移动方向和距离重新计算出盒子的旋转角度，鼠标松开时取消监听，记录盒子角度。这和我之前写的一个例子<strong><a href="https://github.com/kongchenglc/Demo/blob/master/drag.html" target="_blank" rel="external">鼠标拖动div</a></strong> 有点相似：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> cube = <span class="built_in">document</span>.querySelector(<span class="string">".cube"</span>),</div><div class="line">    downX, downY, moveX, moveY, tempX, tempY, degX = <span class="number">0</span>, degY = <span class="number">0</span>;</div><div class="line"></div><div class="line"><span class="built_in">window</span>.onmousedown = <span class="function"><span class="keyword">function</span> (<span class="params">e</span>) </span>&#123;</div><div class="line">    e = e || event;</div><div class="line">    downX = e.clientX;			<span class="comment">//获取鼠标点下去时的坐标</span></div><div class="line">    downY = e.clientY;</div><div class="line"></div><div class="line">    <span class="built_in">window</span>.onmousemove = <span class="function"><span class="keyword">function</span> (<span class="params">e</span>) </span>&#123;</div><div class="line">        e = e || event;</div><div class="line">        moveX = e.clientX - downX;			<span class="comment">//算出鼠标移动的距离</span></div><div class="line">        moveY = e.clientY - downY;</div><div class="line">        <span class="comment">//根据一定比例将变化反应在盒子上，改变比例5可以调节拖动的速度</span></div><div class="line">        tempX = degX + moveX / <span class="number">5</span>;			</div><div class="line">        tempY = degY - moveY / <span class="number">5</span>;</div><div class="line">        cube.style.transform = <span class="string">"rotatex("</span> + tempY + <span class="string">"deg) rotatey("</span> + tempX + <span class="string">"deg)"</span>;</div><div class="line">    &#125;;</div><div class="line"></div><div class="line">&#125;;</div><div class="line"></div><div class="line"><span class="built_in">window</span>.onmouseup = <span class="function"><span class="keyword">function</span> (<span class="params">e</span>) </span>&#123;</div><div class="line">    e = e || event;</div><div class="line">    degX += moveX / <span class="number">5</span>;			<span class="comment">//鼠标松开时将拖动期间改变的最终结果保存</span></div><div class="line">    degY += - moveY / <span class="number">5</span>;</div><div class="line">    <span class="built_in">window</span>.onmousemove = <span class="literal">null</span>;			<span class="comment">//取消监听</span></div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<p>&emsp;&emsp;再加一个使用滚轮改变景深的函数，因为景深太小视角会到盒子里边，并不是很好看，所以限制了一下，在景深小于<code>300px</code>时将不会减小。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div></pre></td><td class="code"><pre><div class="line">!<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">    <span class="keyword">var</span> n = <span class="number">1000</span>;</div><div class="line">    <span class="keyword">var</span> wraper = <span class="built_in">document</span>.querySelector(<span class="string">'.wraper'</span>);</div><div class="line">    wraper.style.perspective = n + <span class="string">'px'</span>;</div><div class="line">    <span class="built_in">window</span>.onmousewheel = <span class="function"><span class="keyword">function</span> (<span class="params">e</span>) </span>&#123;</div><div class="line">        e = e || event;</div><div class="line">        <span class="keyword">if</span> (e.wheelDelta) &#123;  <span class="comment">//判断浏览器IE，谷歌滑轮事件</span></div><div class="line">            <span class="keyword">if</span> (e.wheelDelta &gt; <span class="number">0</span>) &#123; <span class="comment">//当滑轮向上滚动时减小景深</span></div><div class="line">                wraper.style.perspective = n - <span class="number">50</span> + <span class="string">'px'</span>;</div><div class="line">                <span class="keyword">if</span> (n &gt; <span class="number">350</span>) &#123;</div><div class="line">                    n = n - <span class="number">50</span>;</div><div class="line">                &#125;</div><div class="line">            &#125;</div><div class="line">            <span class="keyword">if</span> (e.wheelDelta &lt; <span class="number">0</span>) &#123; <span class="comment">//当滑轮向下滚动时增加景深</span></div><div class="line">                wraper.style.perspective = n + <span class="number">50</span> + <span class="string">'px'</span>;</div><div class="line">                n += <span class="number">50</span>;</div><div class="line">            &#125;</div><div class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (e.detail) &#123;  <span class="comment">//Firefox滑轮事件</span></div><div class="line">            <span class="keyword">if</span> (e.detail &gt; <span class="number">0</span>) &#123;</div><div class="line">                wraper.style.perspective = n - <span class="number">50</span> + <span class="string">'px'</span>;</div><div class="line">                <span class="keyword">if</span> (n &gt; <span class="number">350</span>) &#123;</div><div class="line">                    n = n - <span class="number">50</span>;</div><div class="line">                &#125;</div><div class="line">            &#125;</div><div class="line">            <span class="keyword">if</span> (e.detail &lt; <span class="number">0</span>) &#123;</div><div class="line">                wraper.style.perspective = n + <span class="number">50</span> + <span class="string">'px'</span>;</div><div class="line">                n += <span class="number">50</span>;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;;</div><div class="line">&#125;();</div></pre></td></tr></table></figure>
+<p>&emsp;&emsp;好了，到这里这个盒子看起来已经很<code>3D</code>了，你可以直接在<a href="https://github.com/kongchenglc/Demo/blob/master/3Dbox.html" target="_blank" rel="external"><strong>github</strong></a>上复制代码查看效果，我多加了一个入场动画，喜欢可以顺手点个<code>star</code>。有什么建议或问题可以在博客下方留言，欢迎探讨，共同学习。</p>
+<p><br><br></p>
+<p><div id="container"></div></p>
+<p><link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css"></p>
+<script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
+<script>
+var gitment = new Gitment({
+  owner: 'kongchenglc',
+  repo: 'kongchenglc.github.io',
+  oauth: {
+    client_id: '7dbff17e5f4c6ed576df',
+    client_secret: '4dfa357fe3a76e38ce1fd63eb285b5f21307106e',
+  },
+})
+gitment.render('container');
+</script>
+
       
     </div>
 
@@ -393,7 +446,7 @@
     </li>
     <li class="post-copyright-link">
       <strong>本文链接：</strong>
-      <a href="https://kongchenglc.github.io/blog/3Dbox20170827/" title="3Dbox">https://kongchenglc.github.io/blog/3Dbox20170827/</a>
+      <a href="https://kongchenglc.github.io/blog/3Dbox20170827/" title="拖拽3D盒子">https://kongchenglc.github.io/blog/3Dbox20170827/</a>
     </li>
     <li class="post-copyright-license">
       <strong>版权声明： </strong>
