@@ -102,17 +102,17 @@
 
 
 
-<meta name="description" content="事件循环  单线程循环是并发的一种形式。">
+<meta name="description" content="&amp;emsp;&amp;emsp;在网上找了很多事件循环和任务队列相关的文章，有些说的不是很清楚，看完感觉还是有些晕晕乎乎，所以写这篇博客把整体思路梳理一下。如果你有什么不同的理解，或是疑惑的地方，可以留言讨论。这里是我的github，欢迎来访，有喜欢的东西可以点个star支持一下。  事件循环与任务队列是JS中比较重要的两个概念。这两个概念在ES5和ES6两个标准中有不同的实现。在ES6标准中，清楚的区分">
 <meta name="keywords" content="js,ES6">
 <meta property="og:type" content="article">
 <meta property="og:title" content="事件循环与任务队列">
 <meta property="og:url" content="https://kongchenglc.github.io/blog/事件循环20171026/index.html">
 <meta property="og:site_name" content="Kongcheng.LC">
-<meta property="og:description" content="事件循环  单线程循环是并发的一种形式。">
-<meta property="og:updated_time" content="2017-10-28T11:49:30.261Z">
+<meta property="og:description" content="&amp;emsp;&amp;emsp;在网上找了很多事件循环和任务队列相关的文章，有些说的不是很清楚，看完感觉还是有些晕晕乎乎，所以写这篇博客把整体思路梳理一下。如果你有什么不同的理解，或是疑惑的地方，可以留言讨论。这里是我的github，欢迎来访，有喜欢的东西可以点个star支持一下。  事件循环与任务队列是JS中比较重要的两个概念。这两个概念在ES5和ES6两个标准中有不同的实现。在ES6标准中，清楚的区分">
+<meta property="og:updated_time" content="2017-10-30T13:13:51.360Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="事件循环与任务队列">
-<meta name="twitter:description" content="事件循环  单线程循环是并发的一种形式。">
+<meta name="twitter:description" content="&amp;emsp;&amp;emsp;在网上找了很多事件循环和任务队列相关的文章，有些说的不是很清楚，看完感觉还是有些晕晕乎乎，所以写这篇博客把整体思路梳理一下。如果你有什么不同的理解，或是疑惑的地方，可以留言讨论。这里是我的github，欢迎来访，有喜欢的东西可以点个star支持一下。  事件循环与任务队列是JS中比较重要的两个概念。这两个概念在ES5和ES6两个标准中有不同的实现。在ES6标准中，清楚的区分">
 
 
 
@@ -387,10 +387,20 @@
       
 
       
-        <blockquote>
-<p>事件循环</p>
+        <p>&emsp;&emsp;在网上找了很多事件循环和任务队列相关的文章，有些说的不是很清楚，看完感觉还是有些晕晕乎乎，所以写这篇博客把整体思路梳理一下。如果你有什么不同的理解，或是疑惑的地方，可以留言讨论。<a href="">这里是我的github</a>，欢迎来访，有喜欢的东西可以点个<code>star</code>支持一下。</p>
+<blockquote>
+<p>事件循环与任务队列是<code>JS</code>中比较重要的两个概念。这两个概念在<code>ES5</code>和<code>ES6</code>两个标准中有<strong>不同的实现</strong>。在<code>ES6</code>标准中，清楚的区分宏观任务队列和微观任务队列才能解释<code>Promise</code>一些看似奇怪的表现。</p>
 </blockquote>
-<p>单线程循环是并发的一种形式。</p>
+<h2 id="事件循环"><a href="#事件循环" class="headerlink" title="事件循环"></a>事件循环</h2><p>&emsp;&emsp;事件循环是什么？为什么要有事件循环这个东西？我们都知道<code>JS</code>是单线程的，但是像<code>Ajax</code>，或是<code>DOM</code>事件这种很耗时的操作，需要用并发处理，否则单线程会长时间等待，什么也做不了。而单线程循环就是并发的一种形式，一个线程中只有一个事件循环。任务队列配合事件循环完成操作，一个线程可以拥有多个任务队列。</p>
+<h2 id="任务队列"><a href="#任务队列" class="headerlink" title="任务队列"></a>任务队列</h2><p>&emsp;&emsp;任务队列是什么？故名思意，排着任务的队列。所谓任务是<code>WebAPIs</code>返回的一个个通知，让<code>JS</code>单线程在读取任务队列的时候得知这个任务完成了，下一步该执行这个任务的回调函数了。</p>
+<p>下面通俗的讲述一下<strong>ES5</strong>中事件循环到底是怎么循环的。 </p>
+<p>首先有三种东西必须清楚：  </p>
+<ul>
+<li>函数调用栈</li>
+<li>任务队列：一个线程中有多个任务队列，一类操作有这一类的任务队列，分类后边再详细讨论。</li>
+<li>WebAPIs：浏览器的接口。比如<code>Ajax</code>，就是单线程把收发<code>Ajax</code>交给浏览器<code>API</code>，之后就继续做别的事情，浏览器在收到<code>Ajax</code>返回的数据之后，会把一个<code>Ajax</code>完成的事件排到任务队列后边。  </li>
+</ul>
+<p>&emsp;&emsp;现在打开了一个页面，里边有一段<code>&lt;script&gt;</code>，这段<code>JS</code>使用了<code>Ajax</code>，执行了<code>DOM</code>操作等等。<br>&emsp;&emsp;这段<code>JS</code>是在浏览器给的全局环境（浏览器中是<code>window</code>）里执行的，执行中遇到函数调用时会压入函数调用栈，就这样一直执行，直到函数调用栈为空。在遇到<code>Ajax</code>或是<code>setTimeout</code>这种异步操作会交给浏览器的<code>WebAPIs</code>，然后继续执行之后的代码。</p>
 
       
     </div>
@@ -505,8 +515,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel sidebar-panel-active">
+      <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/images/avatar.gif"
@@ -594,6 +613,22 @@
 
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#事件循环"><span class="nav-text">事件循环</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#任务队列"><span class="nav-text">任务队列</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
