@@ -102,19 +102,19 @@
 
 
 
-<meta name="description" content="&amp;emsp;&amp;emsp;在网上找了很多事件循环和任务队列相关的文章，有些说的不是很清楚，看完感觉还是有些晕晕乎乎，所以写这篇博客把整体思路梳理一下。如果你有什么不同的理解，或是疑惑的地方，可以留言讨论。这里是我的github，欢迎来访，有喜欢的东西可以点个star支持一下。  事件循环与任务队列是JS中比较重要的两个概念。这两个概念在ES5和ES6两个标准中有不同的实现。在ES6标准中，清楚的区分">
+<meta name="description" content="&amp;emsp;&amp;emsp;在网上找了很多事件循环和任务队列相关的文章，有些说的不是很清楚，看完感觉还是有些晕晕乎乎，所以写这篇博客把整体思路梳理一下。如果你有什么不同的理解，或是疑惑的地方，可以留言讨论。这里是我的github，欢迎来访，有喜欢的东西可以点个star支持一下。  事件循环与任务队列是JS中比较重要的两个概念。这两个概念在ES5和ES6两个标准中有不同的实现。尤其在ES6标准中，清楚的">
 <meta name="keywords" content="js,ES6">
 <meta property="og:type" content="article">
 <meta property="og:title" content="事件循环与任务队列">
 <meta property="og:url" content="https://kongchenglc.github.io/blog/事件循环20171026/index.html">
 <meta property="og:site_name" content="Kongcheng.LC">
-<meta property="og:description" content="&amp;emsp;&amp;emsp;在网上找了很多事件循环和任务队列相关的文章，有些说的不是很清楚，看完感觉还是有些晕晕乎乎，所以写这篇博客把整体思路梳理一下。如果你有什么不同的理解，或是疑惑的地方，可以留言讨论。这里是我的github，欢迎来访，有喜欢的东西可以点个star支持一下。  事件循环与任务队列是JS中比较重要的两个概念。这两个概念在ES5和ES6两个标准中有不同的实现。在ES6标准中，清楚的区分">
-<meta property="og:image" content="https://kongchenglc.github.io/blog/事件循环20171026/imgs/sjxh.png">
-<meta property="og:updated_time" content="2017-10-31T12:43:45.156Z">
+<meta property="og:description" content="&amp;emsp;&amp;emsp;在网上找了很多事件循环和任务队列相关的文章，有些说的不是很清楚，看完感觉还是有些晕晕乎乎，所以写这篇博客把整体思路梳理一下。如果你有什么不同的理解，或是疑惑的地方，可以留言讨论。这里是我的github，欢迎来访，有喜欢的东西可以点个star支持一下。  事件循环与任务队列是JS中比较重要的两个概念。这两个概念在ES5和ES6两个标准中有不同的实现。尤其在ES6标准中，清楚的">
+<meta property="og:image" content="https://kongchenglc.github.io/imgs/sjxh.png">
+<meta property="og:updated_time" content="2017-10-31T12:59:45.115Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="事件循环与任务队列">
-<meta name="twitter:description" content="&amp;emsp;&amp;emsp;在网上找了很多事件循环和任务队列相关的文章，有些说的不是很清楚，看完感觉还是有些晕晕乎乎，所以写这篇博客把整体思路梳理一下。如果你有什么不同的理解，或是疑惑的地方，可以留言讨论。这里是我的github，欢迎来访，有喜欢的东西可以点个star支持一下。  事件循环与任务队列是JS中比较重要的两个概念。这两个概念在ES5和ES6两个标准中有不同的实现。在ES6标准中，清楚的区分">
-<meta name="twitter:image" content="https://kongchenglc.github.io/blog/事件循环20171026/imgs/sjxh.png">
+<meta name="twitter:description" content="&amp;emsp;&amp;emsp;在网上找了很多事件循环和任务队列相关的文章，有些说的不是很清楚，看完感觉还是有些晕晕乎乎，所以写这篇博客把整体思路梳理一下。如果你有什么不同的理解，或是疑惑的地方，可以留言讨论。这里是我的github，欢迎来访，有喜欢的东西可以点个star支持一下。  事件循环与任务队列是JS中比较重要的两个概念。这两个概念在ES5和ES6两个标准中有不同的实现。尤其在ES6标准中，清楚的">
+<meta name="twitter:image" content="https://kongchenglc.github.io/imgs/sjxh.png">
 
 
 
@@ -391,12 +391,14 @@
       
         <p>&emsp;&emsp;在网上找了很多事件循环和任务队列相关的文章，有些说的不是很清楚，看完感觉还是有些晕晕乎乎，所以写这篇博客把整体思路梳理一下。如果你有什么不同的理解，或是疑惑的地方，可以留言讨论。<a href="">这里是我的github</a>，欢迎来访，有喜欢的东西可以点个<code>star</code>支持一下。</p>
 <blockquote>
-<p>事件循环与任务队列是<code>JS</code>中比较重要的两个概念。这两个概念在<code>ES5</code>和<code>ES6</code>两个标准中有<strong>不同的实现</strong>。在<code>ES6</code>标准中，清楚的区分宏观任务队列和微观任务队列才能解释<code>Promise</code>一些看似奇怪的表现。</p>
+<p>事件循环与任务队列是<code>JS</code>中比较重要的两个概念。这两个概念在<code>ES5</code>和<code>ES6</code>两个标准中有<strong>不同的实现</strong>。尤其在<code>ES6</code>标准中，清楚的区分<strong>宏观任务队列</strong>和<strong>微观任务队列</strong>才能解释<code>Promise</code>一些看似奇怪的表现。</p>
 </blockquote>
-<h2 id="事件循环"><a href="#事件循环" class="headerlink" title="事件循环"></a>事件循环</h2><p>&emsp;&emsp;事件循环是什么？为什么要有事件循环这个东西？我们都知道<code>JS</code>是单线程的，但是像<code>Ajax</code>，或是<code>DOM</code>事件这种很耗时的操作，需要用并发处理，否则单线程会长时间等待，什么也做不了。而单线程循环就是并发的一种形式，一个线程中只有一个事件循环。任务队列配合事件循环完成操作，一个线程可以拥有多个任务队列。</p>
-<h2 id="任务队列"><a href="#任务队列" class="headerlink" title="任务队列"></a>任务队列</h2><p>&emsp;&emsp;任务队列是什么？故名思意，排着任务的队列。所谓任务是<code>WebAPIs</code>返回的一个个通知，让<code>JS</code>主线程在读取任务队列的时候得知这个任务完成了，下一步该执行这个任务的回调函数了。</p>
-<p>下面通俗的讲述一下<strong>ES5</strong>中事件循环到底是怎么循环的。<br><img src="imgs/sjxh.png" alt="事件循环"></p>
-<p>首先有三种东西必须清楚：  </p>
+<a id="more"></a>
+<h2 id="事件循环"><a href="#事件循环" class="headerlink" title="事件循环"></a>事件循环</h2><p>&emsp;&emsp;事件循环是什么？为什么要有事件循环这个东西？我们都知道<code>JS</code>是单线程的，但是像<code>Ajax</code>，或是<code>DOM</code>事件这种很耗时的操作，需要用并发处理，否则单线程会长时间等待，什么也做不了。而单线程循环就是<strong>并发的一种形式</strong>，一个线程中只有<strong>一个</strong>事件循环。而任务队列用来配合事件循环完成操作，一个线程可以拥有<strong>多个</strong>任务队列。</p>
+<h2 id="任务队列"><a href="#任务队列" class="headerlink" title="任务队列"></a>任务队列</h2><p>&emsp;&emsp;任务队列是什么？故名思意，排着任务的队列。所谓任务是<code>WebAPIs</code>返回的一个个通知，让<code>JS</code>主线程在读取任务队列的时候得知这个任务完成了，下一步该执行这个任务的回调函数了。主线程拥有多个任务队列，不同的任务队列用来排列来自不同<strong>任务源</strong>的任务。任务源是什么？像setTimeout/Promise/DOM操作等都是任务源，来自同类任务源的任务我们称为<strong>同源</strong>，setTimeout与setInterval是同源的。分类后边再详细讨论。</p>
+<p>下面通俗的讲述一下<strong>ES5</strong>中事件循环到底是怎么循环的，如图：  </p>
+<p><img src="/imgs/sjxh.png" alt="事件循环"></p>
+<p>图中有三大块：  </p>
 <ul>
 <li>函数调用栈</li>
 <li>任务队列：一个线程中有多个任务队列，一类操作有这一类的任务队列，分类后边再详细讨论。</li>
