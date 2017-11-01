@@ -102,18 +102,19 @@
 
 
 
-<meta name="description" content="&amp;emsp;&amp;emsp;在网上找了很多事件循环和任务队列相关的文章，有些说的不是很清楚，看完感觉还是有些晕晕乎乎，所以写这篇博客把整体思路梳理一下。如果你有什么不同的理解，或是疑惑的地方，可以留言讨论。这里是我的github，欢迎来访，有喜欢的东西可以点个star支持一下。  事件循环与任务队列是JS中比较重要的两个概念。这两个概念在ES5和ES6两个标准中有不同的实现。尤其在ES6标准中，清楚的">
+<meta name="description" content="&amp;emsp;&amp;emsp;在网上找了很多事件循环和任务队列相关的文章，有些说的不是很清楚，看完感觉还是有些晕晕乎乎，所以写这篇博客把整体思路梳理一下。如果你有什么不同的理解，或是疑惑的地方，可以留言讨论。这里是我的github，欢迎来访。  事件循环与任务队列是JS中比较重要的两个概念。这两个概念在ES5和ES6两个标准中有不同的实现。尤其在ES6标准中，清楚的区分宏观任务队列和微观任务队列才能解释">
 <meta name="keywords" content="js,ES6">
 <meta property="og:type" content="article">
 <meta property="og:title" content="事件循环与任务队列">
 <meta property="og:url" content="https://kongchenglc.github.io/blog/事件循环20171026/index.html">
 <meta property="og:site_name" content="Kongcheng.LC">
-<meta property="og:description" content="&amp;emsp;&amp;emsp;在网上找了很多事件循环和任务队列相关的文章，有些说的不是很清楚，看完感觉还是有些晕晕乎乎，所以写这篇博客把整体思路梳理一下。如果你有什么不同的理解，或是疑惑的地方，可以留言讨论。这里是我的github，欢迎来访，有喜欢的东西可以点个star支持一下。  事件循环与任务队列是JS中比较重要的两个概念。这两个概念在ES5和ES6两个标准中有不同的实现。尤其在ES6标准中，清楚的">
+<meta property="og:description" content="&amp;emsp;&amp;emsp;在网上找了很多事件循环和任务队列相关的文章，有些说的不是很清楚，看完感觉还是有些晕晕乎乎，所以写这篇博客把整体思路梳理一下。如果你有什么不同的理解，或是疑惑的地方，可以留言讨论。这里是我的github，欢迎来访。  事件循环与任务队列是JS中比较重要的两个概念。这两个概念在ES5和ES6两个标准中有不同的实现。尤其在ES6标准中，清楚的区分宏观任务队列和微观任务队列才能解释">
 <meta property="og:image" content="https://kongchenglc.github.io/imgs/sjxh.png">
-<meta property="og:updated_time" content="2017-11-01T09:18:46.370Z">
+<meta property="og:image" content="https://kongchenglc.github.io/imgs/rwdl.png">
+<meta property="og:updated_time" content="2017-11-01T13:18:05.261Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="事件循环与任务队列">
-<meta name="twitter:description" content="&amp;emsp;&amp;emsp;在网上找了很多事件循环和任务队列相关的文章，有些说的不是很清楚，看完感觉还是有些晕晕乎乎，所以写这篇博客把整体思路梳理一下。如果你有什么不同的理解，或是疑惑的地方，可以留言讨论。这里是我的github，欢迎来访，有喜欢的东西可以点个star支持一下。  事件循环与任务队列是JS中比较重要的两个概念。这两个概念在ES5和ES6两个标准中有不同的实现。尤其在ES6标准中，清楚的">
+<meta name="twitter:description" content="&amp;emsp;&amp;emsp;在网上找了很多事件循环和任务队列相关的文章，有些说的不是很清楚，看完感觉还是有些晕晕乎乎，所以写这篇博客把整体思路梳理一下。如果你有什么不同的理解，或是疑惑的地方，可以留言讨论。这里是我的github，欢迎来访。  事件循环与任务队列是JS中比较重要的两个概念。这两个概念在ES5和ES6两个标准中有不同的实现。尤其在ES6标准中，清楚的区分宏观任务队列和微观任务队列才能解释">
 <meta name="twitter:image" content="https://kongchenglc.github.io/imgs/sjxh.png">
 
 
@@ -389,7 +390,7 @@
       
 
       
-        <p>&emsp;&emsp;在网上找了很多事件循环和任务队列相关的文章，有些说的不是很清楚，看完感觉还是有些晕晕乎乎，所以写这篇博客把整体思路梳理一下。如果你有什么不同的理解，或是疑惑的地方，可以留言讨论。<a href="">这里是我的github</a>，欢迎来访，有喜欢的东西可以点个<code>star</code>支持一下。</p>
+        <p>&emsp;&emsp;在网上找了很多事件循环和任务队列相关的文章，有些说的不是很清楚，看完感觉还是有些晕晕乎乎，所以写这篇博客把整体思路梳理一下。如果你有什么不同的理解，或是疑惑的地方，可以留言讨论。<a href="https://github.com/kongchenglc/learn-ES6/blob/master/EventLoop.md" target="_blank" rel="external">这里是我的github</a>，欢迎来访。</p>
 <blockquote>
 <p>事件循环与任务队列是<code>JS</code>中比较重要的两个概念。这两个概念在<code>ES5</code>和<code>ES6</code>两个标准中有<strong>不同的实现</strong>。尤其在<code>ES6</code>标准中，清楚的区分<strong>宏观任务队列</strong>和<strong>微观任务队列</strong>才能解释<code>Promise</code>一些看似奇怪的表现。</p>
 </blockquote>
@@ -397,7 +398,7 @@
 <h2 id="事件循环"><a href="#事件循环" class="headerlink" title="事件循环"></a>事件循环</h2><p>&emsp;&emsp;事件循环是什么？为什么要有事件循环这个东西？我们都知道<code>JS</code>是单线程的，但是像<code>Ajax</code>，或是<code>DOM</code>事件这种很耗时的操作，需要用并发处理，否则单线程会长时间等待，什么也做不了。而单线程循环就是<strong>并发的一种形式</strong>，一个线程中只有<strong>一个</strong>事件循环。而任务队列是用来配合事件循环完成操作的，一个线程可以拥有<strong>多个</strong>任务队列。</p>
 <h2 id="任务队列"><a href="#任务队列" class="headerlink" title="任务队列"></a>任务队列</h2><p>&emsp;&emsp;任务队列是什么？故名思意，排着任务的队列。所谓任务是<code>WebAPIs</code>返回的一个个通知，让<code>JS</code>主线程在读取任务队列的时候得知这个异步任务已经完成，下一步该执行这个任务的回调函数了。主线程拥有多个任务队列，不同的任务队列用来排列来自不同<strong>任务源</strong>的任务。任务源是什么？像setTimeout/Promise/DOM事件等都是任务源，来自同类任务源的任务我们称它们是<strong>同源</strong>的，比如setTimeout与setInterval就是同源的。在<code>ES6</code>标准中任务队列又分为<strong>宏观任务队列</strong>和<strong>微观任务队列</strong>，我们后边再详细讨论。</p>
 <p>下面先通俗的讲述一下<strong>ES5</strong>中事件循环到底是怎么循环的，如图（据<a href="http://www.ruanyifeng.com/blog/2014/10/event-loop.html" target="_blank" rel="external">阮一峰前辈的教程</a>）：  </p>
-<p><img src="/imgs/sjxh.png" alt="事件循环"></p>
+<p><img src="/imgs/sjxh.png" alt="事件循环1"></p>
 <p>图中有三大块：  </p>
 <ul>
 <li>函数调用栈：即执行栈。</li>
@@ -412,8 +413,38 @@
 <li>每访问一个队列，执行栈会<strong>执行完</strong>这个任务队列的所有的代码，然后再取下一个任务队列需要执行的的代码。如果在执行中遇到了当前属于任务队列的异步任务时。此次任务的返回不会直接排到当前任务队列之后。因为这属于两次不同的事件循环，会被区分开来。</li>
 </ol>
 <p>就这样循环执行，直到三大块全为空，这称为<strong>事件循环</strong>。</p>
-<h3 id="微观任务队列"><a href="#微观任务队列" class="headerlink" title="微观任务队列"></a>微观任务队列</h3><p>&emsp;&emsp;<code>ES6</code>标准中任务队列存在两种类型，一种就是上边提到的一些队列，比如<code>setTimeout</code>、网络请求<code>Ajax</code>、用户<code>I\O</code>等都属于宏观任务队列（microtask queue），另一种是微观任务队列（macrotask queue），<code>Promise</code>就属于微观任务队列。  </p>
-
+<h3 id="微观任务队列"><a href="#微观任务队列" class="headerlink" title="微观任务队列"></a>微观任务队列</h3><p>&emsp;&emsp;<code>ES6</code>标准中任务队列存在两种类型，一种就是上边提到的一些队列，比如<code>setTimeout</code>、网络请求<code>Ajax</code>、用户<code>I\O</code>等都属于宏观任务队列（microtask queue），另一种是微观任务队列（macrotask queue），<code>Promise</code>就属于微观任务队列。<br>&emsp;&emsp;添加了微观任务队列之后事件循环有什么变化呢？在执行栈执行的过程中会把属于微观任务队列的任务分配到相应的<strong>微观任务队列</strong>中去。而在调用栈执行空之后，主线程读取任务队列时，会先读取<strong>所有微观任务队列</strong>，然后读取<strong>一个宏观任务队列</strong>，<strong>再读取所有的微观任务队列</strong>。如图：</p>
+<p><img src="/imgs/rwdl.png" alt="事件循环2"></p>
+<p>&emsp;&emsp;好了，说了很多概念上的东西，不如一段代码来的清晰：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;<span class="built_in">console</span>.log(<span class="number">4</span>)&#125;,<span class="number">0</span>);</div><div class="line"><span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function"><span class="keyword">function</span>(<span class="params">resolve</span>)</span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(<span class="number">1</span>)</div><div class="line">    <span class="keyword">for</span>( <span class="keyword">var</span> i=<span class="number">0</span> ; i&lt;<span class="number">10000</span> ; i++ )&#123;</div><div class="line">        i==<span class="number">9999</span> &amp;&amp; resolve()</div><div class="line">    &#125;</div><div class="line">    <span class="built_in">console</span>.log(<span class="number">2</span>)</div><div class="line">&#125;).then(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(<span class="number">5</span>)</div><div class="line">&#125;);</div><div class="line"><span class="built_in">console</span>.log(<span class="number">3</span>);</div></pre></td></tr></table></figure></p>
+<ul>
+<li>脚本开始执行，最先遇到<code>setTimeout</code>，交给浏览器去计时，达到<code>setTimeout</code>限制最短计时之后，把这个任务推入<code>setTimeout</code>队列。</li>
+<li>遇到<code>Promise</code>构造函数，构造函数参数执行，输出<code>1</code>，调用<code>resolve</code>改变<code>Promise</code>对象的状态，然后输出<code>2</code>。</li>
+<li><code>Promise</code>对象调用<code>then</code>方法，将这个任务推入<code>Promise</code>任务队列。</li>
+<li>执行<code>console.log(3)</code>，输出<code>3</code>。</li>
+<li>调用栈为空，读取任务队列，按照<br>  <em>读取所有微观任务队列</em> -&gt; <em>执行</em> -&gt;<br>  <em>读取一个宏观任务队列</em> -&gt; <em>执行</em> -&gt;<br>  <em>读取所有微观任务队列</em> -&gt; <em>执行</em> -&gt;<br>  <em>再读取一个宏观任务队列</em>…的顺序。  </li>
+<li>读取所有微观任务队列中的任务，执行这些任务指定的回调函数。执行<code>then</code>指定的回调函数，输出<code>5</code>（微观任务队列也具有优先级）。</li>
+<li>最后读取到<code>setTimeout</code>的任务，执行回调函数，输出<code>4</code>。</li>
+</ul>
+<p>&emsp;&emsp;所以最后的输出顺序是<code>1,2,3,5,4</code>，而不是<code>1,2,3,4,5</code>。如果不清楚微观任务队列的执行机制，很容易将两个异步任务归为一类，将执行顺序判断错误。</p>
+<blockquote>
+<p>到这里算是把事件循环和任务队列说的比较清楚了，参考了很多大佬的博客与讨论：<br><a href="http://www.ruanyifeng.com/blog/2014/10/event-loop.html" target="_blank" rel="external">http://www.ruanyifeng.com/blog/2014/10/event-loop.html</a><br><a href="https://www.zhihu.com/question/36972010" target="_blank" rel="external">https://www.zhihu.com/question/36972010</a><br><a href="http://www.jianshu.com/p/12b9f73c5a4f" target="_blank" rel="external">http://www.jianshu.com/p/12b9f73c5a4f</a><br><a href="http://www.cnblogs.com/hity-tt/p/6733062.html" target="_blank" rel="external">http://www.cnblogs.com/hity-tt/p/6733062.html</a>  </p>
+</blockquote>
+<p>&emsp;&emsp;如果你有不同的理解请到博客下方留言，<a href="https://github.com/kongchenglc" target="_blank" rel="external">这是我的github</a>，欢迎来访，你的<code>star</code>就是我的动力。</p>
+<p><br><br></p>
+<p><div id="container"></div></p>
+<p><link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css"></p>
+<script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
+<script>
+var gitment = new Gitment({
+  owner: 'kongchenglc',
+  repo: 'kongchenglc.github.io',
+  oauth: {
+    client_id: '7dbff17e5f4c6ed576df',
+    client_secret: '4dfa357fe3a76e38ce1fd63eb285b5f21307106e',
+  },
+})
+gitment.render('container');
+</script>
       
     </div>
 
