@@ -1,0 +1,918 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Monda:300,300italic,400,400italic,700,700italic|Roboto Slab:300,300italic,400,400italic,700,700italic|PT Mono:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="css3,demo," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="&amp;emsp;&amp;emsp;这篇博客是模仿nest.js实现一个demo，由简单到复杂，来一步步的实现它。这里是效果预览。这是我的github，里边还有很多别的前端的demo，喜欢的话可以点个star，你的支持就是我的动力。   从一道面试题开始 实现一个半径10px的小球在500px*500px的方块中做直线运动，初始方向随机，速度保持不变，碰撞到墙壁后反弹。">
+<meta name="keywords" content="css3,demo">
+<meta property="og:type" content="article">
+<meta property="og:title" content="一步步实现nest粒子特效">
+<meta property="og:url" content="https://kongchenglc.github.io/blog/canvas20171217/index.html">
+<meta property="og:site_name" content="Kongcheng.LC">
+<meta property="og:description" content="&amp;emsp;&amp;emsp;这篇博客是模仿nest.js实现一个demo，由简单到复杂，来一步步的实现它。这里是效果预览。这是我的github，里边还有很多别的前端的demo，喜欢的话可以点个star，你的支持就是我的动力。   从一道面试题开始 实现一个半径10px的小球在500px*500px的方块中做直线运动，初始方向随机，速度保持不变，碰撞到墙壁后反弹。">
+<meta property="og:updated_time" content="2017-12-18T03:31:21.097Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="一步步实现nest粒子特效">
+<meta name="twitter:description" content="&amp;emsp;&amp;emsp;这篇博客是模仿nest.js实现一个demo，由简单到复杂，来一步步的实现它。这里是效果预览。这是我的github，里边还有很多别的前端的demo，喜欢的话可以点个star，你的支持就是我的动力。   从一道面试题开始 实现一个半径10px的小球在500px*500px的方块中做直线运动，初始方向随机，速度保持不变，碰撞到墙壁后反弹。">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"right","display":"always","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://kongchenglc.github.io/blog/canvas20171217/"/>
+
+
+
+
+
+  <title>一步步实现nest粒子特效 | Kongcheng.LC</title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right  ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Kongcheng.LC</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">LC的博客</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            时间轴
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="https://kongchenglc.github.io/blog/canvas20171217/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Kongcheng.LC">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Kongcheng.LC">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                一步步实现nest粒子特效
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-12-17T10:36:30+08:00">
+                2017-12-17
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/demo/" itemprop="url" rel="index">
+                    <span itemprop="name">demo</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+
+
+          
+          &nbsp; | &nbsp;
+          <span id="/blog/canvas20171217/"class="leancloud_visitors" data-flag-title="一步步实现nest粒子特效">
+                   &nbsp;阅读次数
+                  </span>
+          
+
+
+
+          
+            
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>&emsp;&emsp;这篇博客是模仿<a href="https://github.com/hustcc/canvas-nest.js" target="_blank" rel="external">nest.js</a>实现一个<code>demo</code>，由简单到复杂，来一步步的实现它。<a href="https://kongchenglc.github.io/Demo/nest/myNest.html">这里是效果预览</a>。<a href="https://github.com/kongchenglc" target="_blank" rel="external">这是我的github</a>，里边还有很多别的前端的<code>demo</code>，喜欢的话可以点个<code>star</code>，你的支持就是我的动力。  </p>
+<h2 id="从一道面试题开始"><a href="#从一道面试题开始" class="headerlink" title="从一道面试题开始"></a>从一道面试题开始</h2><blockquote>
+<p>实现一个半径<code>10px</code>的小球在<code>500px*500px</code>的方块中做直线运动，初始方向随机，速度保持不变，碰撞到墙壁后反弹。</p>
+</blockquote>
+<a id="more"></a>
+<p>&emsp;&emsp;<a href="https://kongchenglc.github.io/Demo/bouncing%20ball.html">看下效果</a>，思路很简单，将小球定位在方块中，设置<code>xy</code>方向上的速度，每帧动画给小球定位的值加上对应方向的速度值，在检测到小球碰撞墙壁的时候，将对应方向的速度置为反方向就可以了。<a href="https://github.com/kongchenglc/Demo/blob/master/bouncing%20ball.html" target="_blank" rel="external">这里是实现的代码</a>，没有用到<code>canvas</code>，但是思路一致。</p>
+<h2 id="尝试实现"><a href="#尝试实现" class="headerlink" title="尝试实现"></a>尝试实现</h2><p>&emsp;&emsp;画出一个弹射的小球很简单，那怎么用多个小球实现<a href="https://kongchenglc.github.io/Demo/nest/myNest.html">nest.js</a>这样的效果呢。这样的特效肯定不能用<code>Dom</code>直接做，太耗费性能，也做不出来，这时就显露出<code>canvas</code>的强大之处了。<br>&emsp;&emsp;同样的，用<code>canvas</code>生成多个弹来弹去的小球。首先不要管鼠标如何吸附这些小圆点，只做小球之间的连线。在每次绘制小球之前，判断一下它和之前的小球的距离是不是小于极限距离，小于就以它俩为端点绘制一条线。代码如下，思路都写在注释里：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">const</span> theCanvas = <span class="built_in">document</span>.getElementById(<span class="string">'theCanvas'</span>),</div><div class="line">  ctx = theCanvas.getContext(<span class="string">'2d'</span>),</div><div class="line">  mix = <span class="number">6000</span>;   <span class="comment">//会产生连线的极限距离的平方</span></div><div class="line"></div><div class="line"><span class="comment">//将canvas铺满浏览器</span></div><div class="line"><span class="keyword">let</span> canvas_width = theCanvas.width = <span class="built_in">window</span>.innerWidth || <span class="built_in">document</span>.documentElement.clientWidth || <span class="built_in">document</span>.body.clientWidth,</div><div class="line">  canvas_height = theCanvas.height = <span class="built_in">window</span>.innerHeight || <span class="built_in">document</span>.documentElement.clientHeight || <span class="built_in">document</span>.body.clientHeight,</div><div class="line">  points = [];</div><div class="line">theCanvas.style = <span class="string">"position: fixed; top: 0px; left: 0px;"</span>;</div><div class="line"></div><div class="line"><span class="comment">//绘制函数，用requestAnimationFrame调用实现动画</span></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">draw</span>(<span class="params"></span>) </span>&#123;</div><div class="line">  <span class="comment">//清屏</span></div><div class="line">  ctx.clearRect(<span class="number">0</span>, <span class="number">0</span>, canvas_width, canvas_height);</div><div class="line">  <span class="keyword">let</span> i,pi,x_dist,y_dist;</div><div class="line"></div><div class="line">  <span class="comment">//遍历点集合绘制线条</span></div><div class="line">  points.forEach(<span class="function">(<span class="params">p, index</span>) =&gt;</span> &#123;</div><div class="line">    p.x += p.xa,		<span class="comment">//按指定速度移动</span></div><div class="line">    p.y += p.ya,</div><div class="line">    p.xa *= p.x &gt; canvas_width || p.x &lt; <span class="number">0</span> ? <span class="number">-1</span> : <span class="number">1</span>,</div><div class="line">    p.ya *= p.y &gt; canvas_height || p.y &lt; <span class="number">0</span> ? <span class="number">-1</span> : <span class="number">1</span>,</div><div class="line">    ctx.fillRect(p.x - <span class="number">0.5</span>, p.y - <span class="number">0.5</span>, <span class="number">1</span>, <span class="number">1</span>);		<span class="comment">//绘制点，其实是小方块</span></div><div class="line"></div><div class="line">    <span class="comment">//类似于握手问题，两个点之间只绘制一次线</span></div><div class="line">    <span class="keyword">for</span>(i = index + <span class="number">1</span>; i &lt; points.length; i++) &#123;</div><div class="line">      pi = points[i];</div><div class="line">      x_dist = p.x - pi.x;</div><div class="line">      y_dist = p.y - pi.y;</div><div class="line">      dist = x_dist * x_dist + y_dist * y_dist;</div><div class="line">      <span class="comment">//判断点之间的距离是否小于极限距离</span></div><div class="line">      <span class="keyword">if</span>(dist &lt; mix) &#123;</div><div class="line">        ctx.beginPath();</div><div class="line">        ctx.moveTo(p.x, p.y);</div><div class="line">        ctx.lineTo(pi.x, pi.y);</div><div class="line">        ctx.stroke();</div><div class="line">      &#125;</div><div class="line">    &#125;</div><div class="line">  &#125;),requestAnimationFrame(draw);</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">//随机生成100个点</span></div><div class="line"><span class="keyword">for</span>(<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; <span class="number">100</span>; i++ ) &#123;</div><div class="line"></div><div class="line">  <span class="keyword">let</span>	x = <span class="built_in">Math</span>.random() * canvas_width,	<span class="comment">//初始坐标</span></div><div class="line">    y = <span class="built_in">Math</span>.random() * canvas_height,</div><div class="line">    xa = <span class="number">2</span> * <span class="built_in">Math</span>.random() - <span class="number">1</span>,			<span class="comment">//x速度</span></div><div class="line">    ya = <span class="number">2</span> * <span class="built_in">Math</span>.random() - <span class="number">1</span>;			<span class="comment">//y速度</span></div><div class="line"></div><div class="line">  points[i] = &#123;x, y, xa, ya&#125;;</div><div class="line">&#125;</div><div class="line"></div><div class="line">draw();</div></pre></td></tr></table></figure></p>
+<p>&emsp;&emsp;看下效果，丑陋，和人家的不一样，很生硬。因为连线不是突然出现突然消失的，点和点之间的连线是渐渐的出现，然后渐渐消失的。给连线添加动态的属性，用点和点的之间的距离来计算连线的粗细、透明度，在两点距离比较远的时候线会变淡，这样看起来就舒服多了。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">for</span>(i = index + <span class="number">1</span>; i &lt; points.length; i++) &#123;</div><div class="line">  pi = points[i];</div><div class="line">  x_dist = p.x - pi.x;</div><div class="line">  y_dist = p.y - pi.y;</div><div class="line">  dist = x_dist * x_dist + y_dist * y_dist;</div><div class="line">  <span class="comment">//根据两点距离得到一个参数w</span></div><div class="line">  w = (mix - dist) / mix;</div><div class="line">  <span class="comment">//判断点之间的距离是否小于极限距离</span></div><div class="line">  <span class="keyword">if</span>(dist &lt; mix) &#123;</div><div class="line">    ctx.beginPath();</div><div class="line">    <span class="comment">//根据参数w设置连线宽度和透明度</span></div><div class="line">    ctx.lineWidth = w / <span class="number">2</span>;</div><div class="line">    ctx.strokeStyle = <span class="string">`rgba(110,110,110,<span class="subst">$&#123;w + <span class="number">0.2</span>&#125;</span>)`</span>;</div><div class="line">    ctx.moveTo(p.x, p.y);</div><div class="line">    ctx.lineTo(pi.x, pi.y);</div><div class="line">    ctx.stroke();</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h2 id="添加鼠标事件"><a href="#添加鼠标事件" class="headerlink" title="添加鼠标事件"></a>添加鼠标事件</h2><p>&emsp;&emsp;先是加入对鼠标的响应。在鼠标进入浏览器时添加鼠标这个点，否则移除。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">window</span>.onmousemove = <span class="function"><span class="params">e</span> =&gt;</span> &#123;</div><div class="line">  e = e || <span class="built_in">window</span>.event;</div><div class="line">  current_point.x = e.clientX;</div><div class="line">  current_point.y = e.clientY;</div><div class="line">&#125;;</div><div class="line"><span class="built_in">window</span>.onmouseout = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</div><div class="line">  current_point.x = <span class="literal">null</span>;</div><div class="line">  current_point.y = <span class="literal">null</span>;</div><div class="line">&#125;;</div><div class="line"><span class="comment">//将鼠标的点添加至点集合中</span></div><div class="line">all_points = [...random_points,current_point];</div></pre></td></tr></table></figure></p>
+<p>&emsp;&emsp;要实现一个鼠标吸附粒子的效果，思路就是粒子和鼠标的距离在一定范围内时，给粒子添加一个向着鼠标的速度，结果就好像是粒子受到鼠标的吸附一样。这是一段鼠标吸附效果的核心代码：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//当两点距离小于极限距离时产生连线，当第二个点是鼠标所产生点时，粒子如果在范围内就会产生向鼠标点的速度，实现吸附效果</span></div><div class="line">dist &lt; pi.max &amp;&amp; (pi === current_point &amp;&amp; dist &gt;= pi.max / <span class="number">2</span> &amp;&amp; (p.x -= <span class="number">0.03</span> * x_dist, p.y -= <span class="number">0.03</span> * y_dist));</div></pre></td></tr></table></figure></p>
+<p>&emsp;&emsp;加入鼠标的点之后再做一些调整，得到<a href="https://github.com/kongchenglc/Demo/blob/master/nest/myNest.html" target="_blank" rel="external">最终的代码</a>。</p>
+<h2 id="其他的粒子特效"><a href="#其他的粒子特效" class="headerlink" title="其他的粒子特效"></a>其他的粒子特效</h2><p>&emsp;&emsp;还可以利用<code>canvas</code>的<code>getImageData</code>属性，将图片粒子化，做成轮播图，<a href="https://kongchenglc.github.io/Demo/particle/index.html">点击这里预览</a>，主要思路是用<code>getImageData</code>取到图片像素点的信息，每隔一段取一个样本，以这个样本绘制粒子，绘制出类似于马赛克一样的图片，然后给粒子加上运动的效果就可以了，<a href="https://github.com/kongchenglc/Demo/blob/master/particle/index.html" target="_blank" rel="external">这里是具体的代码实现</a>。</p>
+<blockquote>
+<p>这篇博客到这就结束了，<a href="https://github.com/kongchenglc" target="_blank" rel="external">这是我的github</a>，欢迎来访，欢迎star。</p>
+</blockquote>
+<p><br><br></p>
+<p><div id="container"></div></p>
+<p><link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css"></p>
+<script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
+<script>
+var gitment = new Gitment({
+  owner: 'kongchenglc',
+  repo: 'kongchenglc.github.io',
+  oauth: {
+    client_id: '7dbff17e5f4c6ed576df',
+    client_secret: '4dfa357fe3a76e38ce1fd63eb285b5f21307106e',
+  },
+})
+gitment.render('container');
+</script>
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+  <ul class="post-copyright">
+    <li class="post-copyright-author">
+      <strong>本文作者：</strong>
+      Kongcheng.LC
+    </li>
+    <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://kongchenglc.github.io/blog/canvas20171217/" title="一步步实现nest粒子特效">https://kongchenglc.github.io/blog/canvas20171217/</a>
+    </li>
+    <li class="post-copyright-license">
+      <strong>版权声明： </strong>
+      本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> 许可协议。转载请注明出处！
+    </li>
+  </ul>
+
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/css3/" rel="tag"># css3</a>
+          
+            <a href="/tags/demo/" rel="tag"># demo</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/blog/事件循环20171026/" rel="prev" title="事件循环与任务队列">
+                事件循环与任务队列 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="Kongcheng.LC" />
+          <p class="site-author-name" itemprop="name">Kongcheng.LC</p>
+           
+              <p class="site-description motion-element" itemprop="description">人海风起云涌</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">11</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">10</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/kongchenglc" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/u/5631374462" target="_blank" title="Weibo">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  Weibo
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+          <div class="cc-license motion-element" itemprop="license">
+            <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" target="_blank">
+              <img src="/images/cc-by-nc-sa.svg" alt="Creative Commons" />
+            </a>
+          </div>
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#从一道面试题开始"><span class="nav-text">从一道面试题开始</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#尝试实现"><span class="nav-text">尝试实现</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#添加鼠标事件"><span class="nav-text">添加鼠标事件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#其他的粒子特效"><span class="nav-text">其他的粒子特效</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+<div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Kongcheng.LC</span>
+  <span id="busuanzi_container_site_pv">
+    本站总访问量<span id="busuanzi_value_site_pv"></span>次
+  </span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+  
+  <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  <!-- custom analytics part create by xiamo -->
+<script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+<script>AV.initialize("8k8H28J3rJHXx7QxBhc9lPRc-gzGzoHsz", "46bUJ8SMuOgdD44evm6nGjRd");</script>
+<script>
+function showTime(Counter) {
+  var query = new AV.Query(Counter);
+  $(".leancloud_visitors").each(function() {
+    var url = $(this).attr("id").trim();
+    query.equalTo("url", url);
+    query.find({
+      success: function(results) {
+        if (results.length == 0) {
+          var content = '0 ' + $(document.getElementById(url)).text();
+          $(document.getElementById(url)).text(content);
+          return;
+        }
+        for (var i = 0; i < results.length; i++) {
+          var object = results[i];
+          var content = object.get('time') + ' ' + $(document.getElementById(url)).text();
+          $(document.getElementById(url)).text(content);
+        }
+      },
+      error: function(object, error) {
+        console.log("Error: " + error.code + " " + error.message);
+      }
+    });
+
+  });
+}
+
+function addCount(Counter) {
+  var Counter = AV.Object.extend("Counter");
+  url = $(".leancloud_visitors").attr('id').trim();
+  title = $(".leancloud_visitors").attr('data-flag-title').trim();
+  var query = new AV.Query(Counter);
+  query.equalTo("url", url);
+  query.find({
+    success: function(results) {
+      if (results.length > 0) {
+        var counter = results[0];
+        counter.fetchWhenSave(true);
+        counter.increment("time");
+        counter.save(null, {
+          success: function(counter) {
+            var content =  counter.get('time') + ' ' + $(document.getElementById(url)).text();
+            $(document.getElementById(url)).text(content);
+          },
+          error: function(counter, error) {
+            console.log('Failed to save Visitor num, with error message: ' + error.message);
+          }
+        });
+      } else {
+        var newcounter = new Counter();
+        newcounter.set("title", title);
+        newcounter.set("url", url);
+        newcounter.set("time", 1);
+        newcounter.save(null, {
+          success: function(newcounter) {
+              console.log("newcounter.get('time')="+newcounter.get('time'));
+            var content = newcounter.get('time') + ' ' + $(document.getElementById(url)).text();
+            $(document.getElementById(url)).text(content);
+          },
+          error: function(newcounter, error) {
+            console.log('Failed to create');
+          }
+        });
+      }
+    },
+    error: function(error) {
+      console.log('Error:' + error.code + " " + error.message);
+    }
+  });
+}
+$(function() {
+  var Counter = AV.Object.extend("Counter");
+  if ($('.leancloud_visitors').length == 1) {
+    addCount(Counter);
+  } else if ($('.post-title-link').length > 1) {
+    showTime(Counter);
+  }
+}); 
+</script>
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+</html>
